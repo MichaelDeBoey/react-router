@@ -5,14 +5,17 @@ on:
     branches:
       - dev
     paths:
-      - ./yarn.lock
+      - yarn.lock
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
-  format:
+  deduplicate:
     if: github.repository == 'remix-run/react-router'
     runs-on: ubuntu-latest
 
@@ -26,7 +29,7 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "yarn"
 
-      - name: ⚙️ Dedupe yarn.lock
+      - name: ⚙️ Deduplicate yarn.lock
         run: npx yarn-deduplicate && rm -rf ./node_modules && yarn
 
       - name: 💪 Commit
