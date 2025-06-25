@@ -548,7 +548,7 @@ test.describe("SPA Mode", () => {
                   ScrollRestoration,
                 } from "react-router";
 
-                export function Layout({ children }: { children: React.ReactNode }) {
+                export function Layout({ children }: React.PropsWithChildren) {
                   return (
                     <html>
                       <head>
@@ -630,7 +630,7 @@ test.describe("SPA Mode", () => {
                   ScrollRestoration,
                 } from "react-router";
 
-                export function Layout({ children }: { children: React.ReactNode }) {
+                export function Layout({ children }: React.PropsWithChildren) {
                   return (
                     <html>
                       <head>
@@ -745,7 +745,7 @@ test.describe("SPA Mode", () => {
                   ScrollRestoration,
                 } from "react-router";
 
-                export function Layout({ children }: { children: React.ReactNode }) {
+                export function Layout({ children }: React.PropsWithChildren) {
                   return (
                     <html>
                       <head>

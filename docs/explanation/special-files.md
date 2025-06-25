@@ -125,9 +125,7 @@ Because your `Layout` component is used in both success and error flows, this sa
 ```tsx filename=app/root.tsx lines=[6-7,19-29,32-34]
 export function Layout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: React.PropsWithChildren) {
   const data = useRouteLoaderData("root");
   const error = useRouteError();
 

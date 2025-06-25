@@ -8,12 +8,11 @@ export default function MemoryNavigate({
   formMethod,
   formData,
   children,
-}: {
+}: React.PropsWithChildren<{
   to: string;
   formMethod?: HTMLFormMethod;
   formData?: FormData;
-  children: React.ReactNode;
-}) {
+}>) {
   let dataRouterContext = React.useContext(UNSAFE_DataRouterContext);
 
   let onClickHandler = React.useCallback(

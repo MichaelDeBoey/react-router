@@ -79,7 +79,7 @@ interface AuthContextType {
 
 let AuthContext = React.createContext<AuthContextType>(null!);
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+function AuthProvider({ children }: React.PropsWithChildren) {
   let [user, setUser] = React.useState<any>(null);
 
   let signin = (newUser: string, callback: VoidFunction) => {

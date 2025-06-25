@@ -195,9 +195,7 @@ import {
 
 export function Layout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: React.PropsWithChildren) {
   return (
     <html lang="en">
       <head>
