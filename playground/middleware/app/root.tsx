@@ -29,7 +29,7 @@ export const unstable_clientMiddleware: Route.unstable_ClientMiddlewareFunction[
     },
   ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({ children }: React.PropsWithChildren) {
   return (
     <html lang="en">
       <head>

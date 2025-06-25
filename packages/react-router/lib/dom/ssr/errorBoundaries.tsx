@@ -141,12 +141,11 @@ export function BoundaryShell({
   renderScripts,
   isOutsideRemixApp,
   children,
-}: {
+}: React.PropsWithChildren<{
   title: string;
   renderScripts?: boolean;
   isOutsideRemixApp?: boolean;
-  children: React.ReactNode | React.ReactNode[];
-}) {
+}>) {
   let { routeModules } = useFrameworkContext();
 
   // Generally speaking, when the root route has a Layout we want to use that

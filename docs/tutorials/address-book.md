@@ -112,9 +112,7 @@ export default function App() {
 // For more information, see https://reactrouter.com/explanation/special-files#layout-export
 export function Layout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: React.PropsWithChildren) {
   return (
     <html lang="en">
       <head>

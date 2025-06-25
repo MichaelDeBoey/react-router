@@ -735,11 +735,10 @@ export class RenderErrorBoundary extends React.Component<
   }
 }
 
-interface RenderedRouteProps {
+type RenderedRouteProps = React.PropsWithChildren<{
   routeContext: RouteContextObject;
   match: RouteMatch<string, RouteObject>;
-  children: React.ReactNode | null;
-}
+}>
 
 function RenderedRoute({ routeContext, match, children }: RenderedRouteProps) {
   let dataRouterContext = React.useContext(DataRouterContext);

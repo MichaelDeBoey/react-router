@@ -79,7 +79,7 @@ interface AuthContextType {
 
 let AuthContext = React.createContext<AuthContextType>(null!);
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
+function AuthProvider({ children }: React.PropsWithChildren) {
   let [user, setUser] = React.useState<any>(null);
 
   let signin = (newUser: string, callback: VoidFunction) => {
@@ -127,7 +127,7 @@ function AuthStatus() {
   );
 }
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+function RequireAuth({ children }: React.PropsWithChildren) {
   let auth = useAuth();
   let location = useLocation();
 
