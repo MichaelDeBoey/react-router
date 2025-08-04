@@ -1,4 +1,4 @@
-import { defineConfig, type Options } from "tsup";
+import { defineConfig, type Options } from "tsdown";
 
 // @ts-ignore - out of scope
 import { createBanner } from "../../build.utils.js";

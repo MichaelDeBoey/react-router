@@ -1,6 +1,6 @@
 import * as fsp from "fs/promises";
 
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 // @ts-ignore - out of scope
 import { createBanner } from "../../build.utils.js";
@@ -20,7 +20,6 @@ const external = ["./static/refresh-utils.mjs", /\.json$/];
 
 export default defineConfig([
   {
-    clean: true,
     entry,
     format: ["cjs"],
     outDir: "dist",

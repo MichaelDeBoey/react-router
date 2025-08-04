@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 // @ts-ignore - out of scope
 import { createBanner } from "../../build.utils.js";
@@ -9,9 +9,8 @@ const entry = ["index.ts"];
 
 export default defineConfig([
   {
-    clean: true,
     entry,
-    format: ["cjs", "esm"],
+    format: ["cjs"],
     outDir: "dist",
     dts: true,
     banner: {

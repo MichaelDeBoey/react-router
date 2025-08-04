@@ -1,17 +1,16 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 // @ts-ignore - out of scope
 import { createBanner } from "../../build.utils.js";
 
 import pkg from "./package.json";
 
-const entry = ["index.ts"];
+const entry = ["cli.ts"];
 
 export default defineConfig([
   {
-    clean: true,
     entry,
-    format: ["cjs", "esm"],
+    format: ["cjs"],
     outDir: "dist",
     dts: true,
     banner: {
