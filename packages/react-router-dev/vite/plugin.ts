@@ -31,11 +31,10 @@ import {
   init as initEsModuleLexer,
   parse as esModuleLexer,
 } from "es-module-lexer";
+import { kebabCase } from "es-toolkit/string";
 import { escapePath as escapePathAsGlob } from "tinyglobby";
-import pick from "lodash/pick";
 import jsesc from "jsesc";
 import colors from "picocolors";
-import kebabCase from "lodash/kebabCase";
 
 import * as Typegen from "../typegen";
 import type { RouteManifestEntry, RouteManifest } from "../config/routes";
@@ -736,7 +735,10 @@ export const reactRouterVitePlugin: ReactRouterVitePlugin = () => {
     let routes = routeIds
       ? // For server bundle builds, the server build should only import the
         // routes for this bundle rather than importing all routes
-        pick(ctx.reactRouterConfig.routes, routeIds)
+        routeIds.reduce(
+          (obj, key) => ({ ...obj, [key]: ctx.reactRouterConfig.routes[key] }),
+          {},
+        )
       : // Otherwise, all routes are imported as usual
         ctx.reactRouterConfig.routes;
 

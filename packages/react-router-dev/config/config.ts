@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { execSync } from "node:child_process";
 import PackageJson from "@npmcli/package-json";
 import * as ViteNode from "../vite/vite-node";
+import { isEqual } from "es-toolkit/predicate";
 import type * as Vite from "vite";
 import Path from "pathe";
 import chokidar, {
@@ -9,10 +10,6 @@ import chokidar, {
   type EmitArgs as ChokidarEmitArgs,
 } from "chokidar";
 import colors from "picocolors";
-import pick from "lodash/pick";
-import omit from "lodash/omit";
-import cloneDeep from "lodash/cloneDeep";
-import isEqual from "lodash/isEqual";
 
 import {
   type RouteManifest,
@@ -56,7 +53,11 @@ type BranchRoute = Pick<
 
 export const configRouteToBranchRoute = (
   configRoute: RouteManifestEntry,
-): BranchRoute => pick(configRoute, branchRouteProperties);
+): BranchRoute =>
+  branchRouteProperties.reduce(
+    (obj, key) => ({ ...obj, [key]: configRoute[key] }),
+    {} as BranchRoute,
+  );
 
 export type ServerBundlesFunction = (args: {
   branch: BranchRoute[];
@@ -389,7 +390,7 @@ async function resolveConfig({
   }
 
   // Prevent mutations to the user config
-  reactRouterUserConfig = deepFreeze(cloneDeep(reactRouterUserConfig));
+  reactRouterUserConfig = deepFreeze(structuredClone(reactRouterUserConfig));
 
   let presets: ReactRouterConfig[] = (
     await Promise.all(
@@ -404,10 +405,10 @@ async function resolveConfig({
           return null;
         }
 
-        let configPreset: ReactRouterConfig = omit(
-          await preset.reactRouterConfig({ reactRouterUserConfig }),
-          excludedConfigPresetKeys,
-        );
+        let configPreset: ReactRouterConfig = await preset.reactRouterConfig({
+          reactRouterUserConfig,
+        });
+        excludedConfigPresetKeys.forEach((key) => delete configPreset[key]);
 
         return configPreset;
       }),

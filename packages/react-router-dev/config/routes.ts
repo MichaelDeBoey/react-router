@@ -1,6 +1,5 @@
 import * as Path from "pathe";
 import * as v from "valibot";
-import pick from "lodash/pick";
 
 import invariant from "../invariant";
 
@@ -225,7 +224,10 @@ function route(
     file,
     children,
     path: path ?? undefined,
-    ...pick(options, createConfigRouteOptionKeys),
+    ...createConfigRouteOptionKeys.reduce(
+      (obj, key) => ({ ...obj, [key]: options[key] }),
+      {},
+    ),
   };
 }
 
@@ -240,11 +242,17 @@ type CreateIndexOptions = Pick<
  * Helper function for creating a route config entry for an index route, for use
  * within `routes.ts`.
  */
-function index(file: string, options?: CreateIndexOptions): RouteConfigEntry {
+function index(
+  file: string,
+  options: CreateIndexOptions = {},
+): RouteConfigEntry {
   return {
     file,
     index: true,
-    ...pick(options, createIndexOptionKeys),
+    ...createIndexOptionKeys.reduce(
+      (obj, key) => ({ ...obj, [key]: options[key] }),
+      {},
+    ),
   };
 }
 
@@ -281,7 +289,10 @@ function layout(
   return {
     file,
     children,
-    ...pick(options, createLayoutOptionKeys),
+    ...createLayoutOptionKeys.reduce(
+      (obj, key) => ({ ...obj, [key]: options[key] }),
+      {},
+    ),
   };
 }
 
