@@ -75,13 +75,21 @@ type HeadersArgs = {
   errorHeaders: Headers | undefined;
 };
 
+type CreateServerMiddlewareArgs<T extends RouteInfo> = ServerDataFunctionArgs<
+  T["params"]
+>;
+
 type CreateServerMiddlewareFunction<T extends RouteInfo> = (
-  args: ServerDataFunctionArgs<T["params"]>,
+  args: CreateServerMiddlewareArgs<T>,
   next: unstable_MiddlewareNextFunction<Response>,
 ) => MaybePromise<Response | void>;
 
+type CreateClientMiddlewareArgs<T extends RouteInfo> = ClientDataFunctionArgs<
+  T["params"]
+>;
+
 type CreateClientMiddlewareFunction<T extends RouteInfo> = (
-  args: ClientDataFunctionArgs<T["params"]>,
+  args: CreateClientMiddlewareArgs<T>,
   next: unstable_MiddlewareNextFunction<undefined>,
 ) => MaybePromise<void>;
 
@@ -189,9 +197,11 @@ export type GetAnnotations<Info extends RouteInfo> = {
   HeadersFunction: (args: HeadersArgs) => Headers | HeadersInit;
 
   // middleware
+  unstable_MiddlewareArgs: CreateServerMiddlewareArgs<Info>;
   unstable_MiddlewareFunction: CreateServerMiddlewareFunction<Info>;
 
   // clientMiddleware
+  unstable_ClientMiddlewareArgs: CreateClientMiddlewareArgs<Info>;
   unstable_ClientMiddlewareFunction: CreateClientMiddlewareFunction<Info>;
 
   // loader
